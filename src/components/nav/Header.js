@@ -5,15 +5,16 @@ import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/ico
 const { SubMenu } = Menu;
 
 const Header = () => {
-    const [current, setCurrent] = useState('')
+    const [current, setCurrent] = useState('home')
     
-    const handleClick = () => {
+    const handleClick = (e) => {
         //
+        console.log(e.key)
     }
 
     return (
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-        <Menu.Item key="mail" icon={<MailOutlined />}>
+        <Menu.Item key="home" icon={<MailOutlined />}>
           Home
         </Menu.Item>
         
