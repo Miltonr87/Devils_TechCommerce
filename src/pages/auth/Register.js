@@ -33,6 +33,7 @@ const Register = ()=> {
                 className="form-control" 
                 value={email} 
                 onChange={e => setEmail(e.target.value) } 
+                placeholder="Your Emails"
                 autoFocus />
 
             <button type="submit" className="btn btn-raised">
