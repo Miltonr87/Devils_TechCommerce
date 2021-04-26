@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 
-// Your web app's Firebase configuration
+// Web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCH26SuQQXyJ1pvGFlEhliA5YtJnHG274o",
     authDomain: "devilstechcommerce.firebaseapp.com",
@@ -20,3 +20,4 @@ const firebaseConfig = {
   // Export Auth + Google Login
   export const auth = firebase.auth();
   export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+  console.log('firebase here->', firebase)

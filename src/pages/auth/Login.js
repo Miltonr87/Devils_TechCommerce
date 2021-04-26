@@ -1,53 +1,69 @@
 import React, { useState } from 'react';
 import { auth } from '../../firebase';
 import { toast } from 'react-toastify';
+import { Button } from 'antd';
+import { MailOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
 
 
-const Login = ()=> {
-    const [ email, setEmail ] = useState('');
-    const [ password, setPassword ] = useState('');
+const Login = ({ history }) => {
+    const [ email, setEmail ] = useState('miltonrodrigues713@gmail.com');
+    const [ password, setPassword ] = useState('123456');
+    const [ loading, setLoading ] = useState(false);
+
+    let dispatch = useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('ENV: ', process.env.REACT_APP_REGISTER_REDIRECT_URL)
-        
-        const config = {
-            url: process.env.REACT_APP_REGISTER_REDIRECT_URL,
-            handleCodeInApp: true,
+        setLoading(true)
+        try {
+            const result = await auth.signInWithEmailAndPassword(email, password)
+            const { user } = result;
+            const idTokenResult = await user.getIdTokenResult();
+            dispatch({
+                type: 'LOGGED_IN_USER',
+                payload: {
+                  email: user.email,
+                  token: idTokenResult.token
+                }
+              })
+              history.push('/')
+        } catch (error ) {
+            console.log(error)
+            toast.error(error.message)
+            setLoading(false)
         }
-        await auth.sendSignInLinkToEmail(email, config)
-        toast.success(
-            `Email is sent to ${email}. Click the link to complete your registration.`
-            )
-
-        // save user email in local storage    
-        window.localStorage.setItem('emailForRegistration', email)
-
-        // clear state
-        setEmail("");
     }
 
     const loginForm = () => {
         return (
-        <form onSubmit={handleSubmit}> 
-            <input type="email" 
-                className="form-control" 
-                value={email} 
-                onChange={e => setEmail(e.target.value) } 
-                placeholder="Your Emails"
-                autoFocus />
+        <form onSubmit={handleSubmit}>
+            <div className="form-group"> 
+                <input type="email" 
+                    className="form-control" 
+                    value={email} 
+                    onChange={e => setEmail(e.target.value) } 
+                    placeholder="Your Email"
+                    autoFocus />
+            </div>    
             <div className="form-group">
-            <input type="password" 
-                className="form-control" 
-                value={password} 
-                onChange={e => setPassword(e.target.value) } 
-                placeholder="Your Password" />    
-
+                <input type="password" 
+                    className="form-control" 
+                    value={password} 
+                    onChange={e => setPassword(e.target.value) } 
+                    placeholder="Your Password" />    
             </div>
             
-            <button type="submit" className="btn btn-raised">
-                Login
-            </button>
+            <Button onClick={handleSubmit} 
+                type="primary" 
+                className="mb-3" 
+                block
+                shape="round"
+                icon={< MailOutlined />}
+                size="large"
+                disabled={!email || password.length < 6}>
+                Login with Email/Password
+            </Button>
         </form>
         )
     }

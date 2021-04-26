@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { auth } from '../../firebase';
 import { toast } from 'react-toastify';
+import { Button } from 'antd';
 
-
-const Register = ()=> {
+const Register = () => {
     const [ email, setEmail ] = useState('');
 
     const handleSubmit = async (e) => {
@@ -18,11 +18,9 @@ const Register = ()=> {
         toast.success(
             `Email is sent to ${email}. Click the link to complete your registration.`
             )
-
-        // save user email in local storage    
+ 
         window.localStorage.setItem('emailForRegistration', email)
 
-        // clear state
         setEmail("");
     }
 
@@ -33,7 +31,7 @@ const Register = ()=> {
                 className="form-control" 
                 value={email} 
                 onChange={e => setEmail(e.target.value) } 
-                placeholder="Your Emails"
+                placeholder="Your Email"
                 autoFocus />
 
             <button type="submit" className="btn btn-raised">
