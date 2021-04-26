@@ -34,9 +34,9 @@ const Register = () => {
                 placeholder="Your Email"
                 autoFocus />
 
-            <button type="submit" className="btn btn-raised">
+            <Button type="submit" className="btn btn-raised">
                 Register
-            </button>
+            </Button>
         </form>
         )
     }
