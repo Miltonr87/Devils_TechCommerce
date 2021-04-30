@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { readdirSync } = require('fs');
 require('dotenv').config();
 
 // App Create:
@@ -18,17 +19,12 @@ mongoose.connect(process.env.DATABASE, {
 .catch(error => console.log("DB Connection Error", error));
 
 // Middlewares:
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(bodyParser.json({ limit: '2mb'}));
 app.use(cors());
 
-// Route:
-app.get('/api', (req, res) => {
-    
-    res.json({
-        data: "hit API at Node"
-    });
-});
+// Routes Middleware
+readdirSync('./routes').map((r) => app.use("/api", require('./routes/' + r)));
 
 // Port:
 const port = process.env.port || 8000;
