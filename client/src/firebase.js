@@ -3,13 +3,14 @@ import 'firebase/auth';
 
 // Web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyCH26SuQQXyJ1pvGFlEhliA5YtJnHG274o",
-    authDomain: "devilstechcommerce.firebaseapp.com",
-    projectId: "devilstechcommerce",
-    storageBucket: "devilstechcommerce.appspot.com",
-    messagingSenderId: "272834964743",
-    appId: "1:272834964743:web:83f405ff76219adbc4a9a2"
-  };
+  apiKey: "AIzaSyBi2MQkJG8Vtd2XAV4nqVbsGDP9x746v-8",
+  authDomain: "globe-coin.firebaseapp.com",
+  projectId: "globe-coin",
+  storageBucket: "globe-coin.appspot.com",
+  messagingSenderId: "806494583144",
+  appId: "1:806494583144:web:5c9daf0ebc15bec3afbedd",
+  measurementId: "G-7VWJSME3XR"
+};
 
   // Initialize Firebase app
   if (!firebase.apps.length) {
